@@ -20,11 +20,36 @@ proxy.use(express.static(path.join(__dirname, '../')));
 // });
 
 proxy.use('/api/amenities', (req, res) => {
-  request('http://localhost:3012/api/amenities', (error, response, body) => {
-    if (response.statusCode === 200) {
-      res.status(200).send(body);
+  request(
+    'https://s3-us-west-1.amazonaws.com/my.fecbucket/jun-bundle.js',
+    (error, response, body) => {
+      if (response.statusCode === 200) {
+        res.status(200).send(body);
+      }
     }
-  });
+  );
+});
+
+proxy.use('/api/pageDetails/data', (req, res) => {
+  request(
+    'https://s3-us-west-1.amazonaws.com/my.fecbucket/les-bundle.js',
+    (error, response, body) => {
+      if (response.statusCode === 200) {
+        res.status(200).send(body);
+      }
+    }
+  );
+});
+
+proxy.use('/api/rooms/1', (req, res) => {
+  request(
+    'https://s3-us-west-1.amazonaws.com/my.fecbucket/blake-bundle.js',
+    (error, response, body) => {
+      if (response.statusCode === 200) {
+        res.status(200).send(body);
+      }
+    }
+  );
 });
 
 proxy.listen(port, () => console.log(`Connected on port ${port}!!! `));
